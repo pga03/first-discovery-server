@@ -1,0 +1,13 @@
+---
+applications:
+- name: firstdiscoveryserver
+  memory: 512M
+  host: firstdiscoveryserver
+  domain: mybluemix.net
+  env:
+    GPII_OAUTH2_TCP_PORT: 443
+    GPII_OAUTH2_HOST_NAME: https://gpii-auth.mybluemix.net
+    GPII_OAUTH2_ACCESS_TOKEN_PATH: /access_token
+    GPII_OAUTH2_ADD_PREFERENCES_PATH: /add-preferences?view=%view
+    GPII_OAUTH2_AUTH_GRANT_TYPE: client_credentials
+    GPII_OAUTH2_AUTH_SCOPE: add_preferences

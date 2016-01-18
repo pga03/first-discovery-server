@@ -1,0 +1,13 @@
+{
+    "type": "firstDiscovery.server.vagrant.config",
+    "options": {
+        "gradeNames": ["gpii.firstDiscovery.server.configurator"],
+        "preferencesConfig": {
+            "securityServer": {
+                "port": "8081",
+                "hostname": "http://10.0.2.2"
+            }
+        }
+    },
+    "mergeConfigs": ["oauth2.json"]
+}

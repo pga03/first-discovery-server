@@ -20,17 +20,21 @@ var path = require("path");
 var fdDemosDir = path.resolve(__dirname, "../../node_modules/gpii-first-discovery/demos");
 var fdSrcDir = path.resolve(__dirname, "../../node_modules/gpii-first-discovery/src");
 
+console.dir(process.env);
+
+/*
+expander: {
+    funcName: "fluid.stringTemplate",
+        args: ["http://:%port", {port: "{that}.options.config.express.port"}]
+}
+*/
+
 fluid.defaults("gpii.firstDiscovery.server", {
     gradeNames: ["gpii.express"],
     port: 8088,
     config: {
         express: {
-            baseUrl: {
-                expander: {
-                    funcName: "fluid.stringTemplate",
-                    args: ["http://localhost:%port", {port: "{that}.options.config.express.port"}]
-                }
-            }
+            baseUrl: "http://firstdiscoveryserver.mybluemix.net"
         }
     },
     preferencesConfig: {},
@@ -39,6 +43,7 @@ fluid.defaults("gpii.firstDiscovery.server", {
             type: "gpii.express.middleware.bodyparser.json"
         },
         demoRouter: {
+
             type: "gpii.express.router.static",
             options: {
                 path:    "/demos",

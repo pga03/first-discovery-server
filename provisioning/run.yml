@@ -1,0 +1,9 @@
+---
+- hosts: local
+  connection: local
+  vars_files:
+    - docker-vars.yml
+  roles:
+    - facts
+    - nodejs
+    - preferences-server

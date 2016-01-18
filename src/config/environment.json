@@ -2,7 +2,7 @@
     "type": "firstDiscovery.server.environment.config",
     "options": {
         "gradeNames": ["gpii.firstDiscovery.server.configurator"],
-        "port": "{gpii.resolvers.env}.vars.FIRST_DISCOVERY_SERVER_TCP_PORT",
+        "port": "{gpii.resolvers.env}.vars.PORT",
         "preferencesConfig": {
             "securityServer": {
                 "port": "{gpii.resolvers.env}.vars.GPII_OAUTH2_TCP_PORT",
@@ -22,3 +22,58 @@
     },
     "require": ["../js/firstDiscoveryServer.js"]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

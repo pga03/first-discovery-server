@@ -1,0 +1,24 @@
+{
+  "type": "firstDiscovery.server.bluemix.config",
+  "options": {
+    "gradeNames": ["gpii.firstDiscovery.server.configurator"],
+    "port": 8088,
+    "preferencesConfig": {
+      "securityServer": {
+        "port": 443,
+        "hostname": "https://flowmanager-demo.mybluemix.net",
+        "paths": {
+          "token": "/access_token",
+          "preferences": "/add-preferences?view=%view"
+        }
+      },
+      "authentication": {
+        "grant_type": "client_credentials",
+        "scope": "add_preferences",
+        "client_id": "{gpii.resolvers.env}.vars.GPII_OAUTH2_AUTH_CLIENT_ID",
+        "client_secret": "{gpii.resolvers.env}.vars.GPII_OAUTH2_AUTH_CLIENT_SECRET"
+      }
+    }
+  },
+  "require": ["../js/firstDiscoveryServer.js"]
+}

@@ -1,0 +1,32 @@
+---
+# Docker-specific variables
+
+nodejs_app_install_dir: "{{ lookup('env', 'INSTALL_DIR') }}"
+
+nodejs_app_name: first-discovery-server
+
+nodejs_app_commands:
+  - npm run fullinstall
+
+nodejs_app_start_script: index.js
+
+nodejs_app_tcp_port: 8088
+
+nodejs_version: 4.2.1
+
+nodejs_npm_version: 2.14.5
+
+nodejs_app_dev_env: true
+
+nodejs_app_git_clone: true
+
+# A Git repository's URL. This is mandatory if 'nodejs_app_git_clone' is set to
+# 'true'.
+# Example: https://github.com/gpii/universal.git
+nodejs_app_git_repo: 'https://github.com/pga03/first-discovery-server.git'
+
+# A Git branch. This can also be the full 40-character SHA-1 hash, the literal
+# string HEAD, or a tag name. This is mandatory if 'nodejs_app_git_clone' is set
+# to 'true'.
+# Example: master
+nodejs_app_git_branch: 'demo2'

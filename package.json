@@ -9,12 +9,13 @@
   },
   "scripts": {
     "dedupe-infusion": "node -e \"require('dedupe-infusion')()\"",
+    "postinstall": "node -e \"require('dedupe-infusion')()\"",
     "fullinstall": "npm install && npm run dedupe-infusion",
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GPII/first-discovery-server.git"
+    "url": "git+https://github.com/pga03/first-discovery-server.git"
   },
   "keywords": [
     "preferences",
@@ -32,10 +33,11 @@
   },
   "homepage": "http://gpii.net",
   "dependencies": {
+    "grunt": "^0.4.5",
     "ajv": "^1.4.9",
     "dedupe-infusion": "1.0.0",
-    "first-discovery": "git+https://github.com/GPII/first-discovery.git#c6242135a6bdf569ac4fa6bd430b3ed7306f7f99",
-    "gpii-express": "git+https://github.com/GPII/gpii-express.git#a638658d322f9bf03beb31ef530c4f8f10ed717e",
+    "first-discovery": "git+https://github.com/pga03/first-discovery.git#demo2",
+    "gpii-express": "git+https://github.com/pga03/gpii-express.git/#demo2",
     "infusion": "2.0.0-dev.20151130T180545Z.18ee3f8",
     "kettle": "git://github.com/amb26/kettle.git#aa6410411e65a532fc9dabc3c044e9391649c554"
   },

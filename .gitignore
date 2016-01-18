@@ -1,3 +1,4 @@
 .vagrant
 node_modules
 provisioning/secrets.yml
+.idea
