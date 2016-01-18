@@ -29,4 +29,4 @@ nodejs_app_git_repo: 'https://github.com/pga03/first-discovery-server.git'
 # string HEAD, or a tag name. This is mandatory if 'nodejs_app_git_clone' is set
 # to 'true'.
 # Example: master
-nodejs_app_git_branch: 'demo2'
+nodejs_app_git_branch: 'fds-confirm-panel'
