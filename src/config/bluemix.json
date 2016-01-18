@@ -5,8 +5,8 @@
     "port": 8088,
     "preferencesConfig": {
       "securityServer": {
-        "port": "443",
-        "hostname": "https://flowmanager-demo.mybluemix.net",
+        "port": "80",
+        "hostname": "http://flowmanager-demo.mybluemix.net",
         "paths": {
           "token": "/access_token",
           "preferences": "/add-preferences?view=%view"
