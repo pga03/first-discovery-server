@@ -4,6 +4,7 @@
 
   vars_files:
     - vars.yml
+    - vagrant-vars.yml
 
   pre_tasks:
     - include_vars: secrets.yml

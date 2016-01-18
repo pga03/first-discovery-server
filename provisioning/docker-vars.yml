@@ -1,0 +1,13 @@
+nodejs_app_start_script: docker.js
+
+# We load first-discovery-server to /opt/first-discovery-server in the Dockerfile
+# And configure the ENV there that we use here
+
+nodejs_app_install_dir: "{{ lookup('env', 'INSTALL_DIR') }}"
+
+nodejs_app_env_vars:
+  - GPII_OAUTH2_AUTH_CLIENT_ID="{{ lookup('env', 'GPII_OAUTH2_AUTH_CLIENT_ID') }}"
+  - GPII_OAUTH2_AUTH_CLIENT_SECRET="{{ lookup('env', 'GPII_OAUTH2_AUTH_CLIENT_SECRET') }}"
+  - FIRST_DISCOVERY_SERVER_TCP_PORT={{ nodejs_app_tcp_port }}
+  - GPII_OAUTH2_HOST_NAME="{{ lookup('env', 'GPII_OAUTH2_HOST_NAME') | default('http://localhost',true) }}"
+  - GPII_OAUTH2_TCP_PORT="{{ lookup('env', 'GPII_OAUTH2_TCP_PORT') | default('8081',true) }}"

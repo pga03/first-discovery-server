@@ -1,0 +1,9 @@
+nodejs_app_start_script: index.js
+
+nodejs_version: 4.2.1
+
+nodejs_npm_version: 2.14.5
+
+nodejs_app_install_dir: /home/vagrant/sync
+
+nodejs_app_dev_env: true

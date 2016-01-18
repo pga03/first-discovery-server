@@ -87,12 +87,58 @@ _**NOTE**: If you changed the port option, `nodejs_app_tcp_port`, in the [vars.y
 
 Logs output by the VM can be viewed in a web browser at `http://127.0.0.1:19531/entries?_EXE=/usr/bin/node&follow`.
 
+### Working With Docker ###
+
+### Build
+
+You can build a Docker container from your local own version of the codebase, FE:
+
+- build: `docker build -t aharnum/first-discovery-server .`
+
+### Run
+
+Launching a working Dockerized version requires some prerequisites:
+- a running Flow Manager to connect to (host name and port specified with the `GPII_OAUTH2_HOST_NAME` and `GPII_OAUTH2_TCP_PORT` environment variables)
+- valid `GPII_OAUTH2_AUTH_CLIENT_ID` and `GPII_OAUTH2_AUTH_CLIENT_SECRET` values to be passed to the container at runtime as environment variables
+
+#### Run Example
+
+This is an example of launching a self-contained Flow Manager container, then connecting a First Discovery Server to it.
+
+- launching Flow Manager:
+```
+docker run --name flowmanagerfd -d \
+-e NODE_ENV=cloudBased.development.all.local \
+-e PREFERENCES_SERVER_HOST_ADDRESS=localhost:8081 \
+gpii/flow-manager
+```
+
+- launching First Discovery server, supplying the client ID and client secret as environment variables:
+```
+docker run -d -l flowmanagerfd -p 8088:8088 --name fdserver \
+-e GPII_OAUTH2_HOST_NAME=http://flowmanagerfd \
+-e GPII_OAUTH2_TCP_PORT=8081 \
+-e GPII_OAUTH2_AUTH_CLIENT_ID={{ client_id }} \
+-e GPII_OAUTH2_AUTH_CLIENT_SECRET={{ client_secret }} \
+gpii/first-discovery-server
+```
+
+You should then be able to connect to http://{docker_host}:8088 /demos/prefsServerIntegration/ and go through the flow to receive a token (where docker_host is the IP of your locally-running Docker host), assuming your flow-manager container runs a version supporting the OAUTH code.
+
 ### Secrets ###
 
-the `client_id` and `client_secret` are confidential and should not be committed. Vagrant is setup to be provisioned with environment variables from a "secrets.yml" file stored in the "provisioning" directory. "secrets.yml" is ignored by git and should not be added to versioning. An example is provided at "[secrets.yml.example](./provisioning/secrets.yml.example)" and takes the form:
+the `client_id` and `client_secret` are confidential and should not be committed.
+
+#### Using Secrets With Vagrant ####
+
+Vagrant is setup to be provisioned with environment variables from a "secrets.yml" file stored in the "provisioning" directory. "secrets.yml" is ignored by git and should not be added to versioning. An example is provided at "[secrets.yml.example](./provisioning/secrets.yml.example)" and takes the form:
 
 ```yaml
 secrets_env_vars:
   - GPII_OAUTH2_AUTH_CLIENT_ID=first_discovery_client_id
   - GPII_OAUTH2_AUTH_CLIENT_SECRET=first_discovery_client_secret
 ```
+
+#### Using Secrets With Docker ####
+
+The needed secrets can be supplied to the Docker container at launch as environment variables with the *-e* flag; see the Docker section above for an example of how this works.

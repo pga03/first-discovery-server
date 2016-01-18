@@ -3,16 +3,17 @@
 
 require 'yaml'
 
-ansible_vars = YAML.load_file('provisioning/vars.yml')
+vars = YAML.load_file('provisioning/vars.yml')
+vagrant_vars = YAML.load_file('provisioning/vagrant-vars.yml')
 
-app_name = ansible_vars["nodejs_app_name"]
+app_name = vars["nodejs_app_name"]
 
-app_directory = ansible_vars["nodejs_app_install_dir"]
+app_directory = vagrant_vars["nodejs_app_install_dir"]
 
 # If 'nodejs_app_tcp_port' is defined in vars.yml, use that port.
 # Failing that use defaults provided in this file.
-host_tcp_port = ansible_vars["nodejs_app_tcp_port"] || 8088
-guest_tcp_port = ansible_vars["nodejs_app_tcp_port"] || 8088
+host_tcp_port = vars["nodejs_app_tcp_port"] || 8088
+guest_tcp_port = vars["nodejs_app_tcp_port"] || 8088
 
 # By default this VM will use 1 processor core and 1GB of RAM. The 'VM_CPUS' and
 # "VM_RAM" environment variables can be used to change that behaviour.
@@ -54,7 +55,7 @@ Vagrant.configure(2) do |config|
   # inclusivedesign/centos7 Vagrant box includes one.
   config.vm.provision "shell", inline: <<-SHELL
     sudo ansible-galaxy install -fr #{app_directory}/provisioning/requirements.yml
-    sudo PYTHONUNBUFFERED=1 ansible-playbook #{app_directory}/provisioning/playbook.yml --tags="install,configure,deploy"
+    sudo PYTHONUNBUFFERED=1 ansible-playbook #{app_directory}/provisioning/vagrant.yml --tags="install,configure,deploy"
   SHELL
 
   # 'Vagrantfile.local' should be excluded from version control.
