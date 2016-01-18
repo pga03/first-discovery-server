@@ -39,7 +39,7 @@
     "first-discovery": "git+https://github.com/pga03/first-discovery.git#demo2",
     "gpii-express": "git+https://github.com/pga03/gpii-express.git/#demo2",
     "infusion": "2.0.0-dev.20151130T180545Z.18ee3f8",
-    "kettle": "git://github.com/amb26/kettle.git#aa6410411e65a532fc9dabc3c044e9391649c554"
+    "kettle": "git://github.com/pga03/kettle.git#pga03"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
