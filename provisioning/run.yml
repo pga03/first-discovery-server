@@ -6,4 +6,3 @@
   roles:
     - facts
     - nodejs
-    - preferences-server

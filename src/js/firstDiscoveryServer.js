@@ -16,6 +16,9 @@ require("gpii-express");
 require("./preferencesRouter.js");
 require("./configUtils.js");
 
+
+fluid.log("HELLO from firstDiscoveryServer.js");
+
 var path = require("path");
 var fdDemosDir = path.resolve(__dirname, "../../node_modules/gpii-first-discovery/demos");
 var fdSrcDir = path.resolve(__dirname, "../../node_modules/gpii-first-discovery/src");

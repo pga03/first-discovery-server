@@ -96,6 +96,9 @@ fluid.defaults("gpii.firstDiscovery.server.preferences.handler", {
  *                         Otherwise 500 will be used as the response code.
  */
 gpii.firstDiscovery.server.preferences.handler.errorHandler = function (that, error, errorMsg) {
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.errorHandler: entering ");
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.errorHandler: error: " + JSON.stringify(error, null, 2));
+
     var errorObj = $.extend(true, {}, error, {
         statusCode: error.statusCode || 500,
         message: errorMsg + ": " + error.message,
@@ -116,11 +119,16 @@ gpii.firstDiscovery.server.preferences.handler.errorHandler = function (that, er
  *                      reject an error object will be returned.
  */
 gpii.firstDiscovery.server.preferences.handler.getAccessToken = function (that) {
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.getAccessToken: entering");
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.getAccessToken: that.accessTokenDataSource: " + JSON.stringify(that.accessTokenDataSource), null, 2);
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.getAccessToken: that.options.config.authentication: " + JSON.stringify(that.options.config.authentication, null, 2));
 
     var promise = fluid.promise();
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.getAccessToken: calling set on data source");
     var atPromise = that.accessTokenDataSource.set(null, that.options.config.authentication);
 
     atPromise.then(function (response) {
+        fluid.log("gpii.firstDiscovery.server.preferences.handler.getAccessToken: atPromise resolved with response: " + JSON.stringify(response), null, 2);
         var access = JSON.parse(response);
         promise.resolve(access);
     }, promise.reject);
@@ -141,6 +149,11 @@ gpii.firstDiscovery.server.preferences.handler.getAccessToken = function (that) 
  *                      reject an error object will be returned.
  */
 gpii.firstDiscovery.server.preferences.handler.createUser = function (that, access, prefs, view) {
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.createUser: entering");
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.createUser: access: " + JSON.stringify(access, null, 2));
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.createUser: prefs: " + JSON.stringify(prefs, null, 2));
+    fluid.log("gpii.firstDiscovery.server.preferences.handler.createUser: view: " + view);
+
     var toStore = fluid.copy(that.options.prefContext);
     fluid.set(toStore, ["contexts", "gpii-default", "preferences"], prefs);
 
