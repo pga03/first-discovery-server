@@ -15,6 +15,7 @@ var fluid = require("infusion");
 require("gpii-express");
 require("./preferencesRouter.js");
 require("./configUtils.js");
+require("./gpii-express-compression.js");
 
 var path = require("path");
 var fdDemosDir = path.resolve(__dirname, "../../node_modules/gpii-first-discovery/demos");
@@ -37,6 +38,9 @@ fluid.defaults("gpii.firstDiscovery.server", {
     components: {
         json: {
             type: "gpii.express.middleware.bodyparser.json"
+        },
+        middleware: {
+            type: "gpii.express.middleware.compression"
         },
         demoRouter: {
             type: "gpii.express.router.static",
