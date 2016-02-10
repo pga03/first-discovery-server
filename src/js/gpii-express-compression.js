@@ -1,7 +1,7 @@
 "use strict";
 var fluid = require("infusion");
 var gpii = fluid.registerNamespace("gpii");
-var compression = require("compression");
+var compression = require("compression")();
 
 fluid.registerNamespace("gpii.express.middleware.compression");
 
