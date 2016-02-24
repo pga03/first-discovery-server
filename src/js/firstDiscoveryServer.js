@@ -20,6 +20,7 @@ require("./gpii-express-compression.js");
 var path = require("path");
 var fdDemosDir = path.resolve(__dirname, "../../node_modules/gpii-first-discovery/demos");
 var fdSrcDir = path.resolve(__dirname, "../../node_modules/gpii-first-discovery/src");
+var fdTestsDir = path.resolve(__dirname, "../../node_modules/gpii-first-discovery/tests");
 
 fluid.defaults("gpii.firstDiscovery.server", {
     gradeNames: ["gpii.express"],
@@ -39,6 +40,12 @@ fluid.defaults("gpii.firstDiscovery.server", {
         json: {
             type: "gpii.express.middleware.bodyparser.json"
         },
+        prefsRouter: {
+            type: "gpii.firstDiscovery.server.preferences.router",
+            options: {
+                path: "/user"
+            }
+        },
         middleware: {
             type: "gpii.express.middleware.compression"
         },
@@ -56,10 +63,11 @@ fluid.defaults("gpii.firstDiscovery.server", {
                 content: fdSrcDir
             }
         },
-        prefsRouter: {
-            type: "gpii.firstDiscovery.server.preferences.router",
+        testsRouter: {
+            type: "gpii.express.router.static",
             options: {
-                path: "/user"
+                path:    "/tests",
+                content: fdTestsDir
             }
         }
     },

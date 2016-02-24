@@ -6,8 +6,6 @@ var compression = require("compression")();
 fluid.registerNamespace("gpii.express.middleware.compression");
 
 gpii.express.middleware.compression.middleware = function (that, req, res, next) {
-
-    console.log(req.url);
     compression(req, res, next);
 };
 
