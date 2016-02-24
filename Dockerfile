@@ -12,7 +12,7 @@ ENV INSTALL_DIR=/opt/first-discovery-server
 
 COPY . $INSTALL_DIR
 
-RUN ansible-playbook docker.yml --tags "install"
+RUN ansible-playbook docker.yml --tags "install,configure"
 
 COPY provisioning/start.sh /usr/local/bin/start.sh
 
