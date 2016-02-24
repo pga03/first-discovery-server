@@ -96,6 +96,9 @@ fluid.defaults("gpii.firstDiscovery.server.preferences.handler", {
  *                         Otherwise 500 will be used as the response code.
  */
 gpii.firstDiscovery.server.preferences.handler.errorHandler = function (that, error, errorMsg) {
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.errorHandler: error:: " + JSON.stringify(error, null, 2));
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.errorHandler: errorMsg: " + errorMsg);
+
     var errorObj = $.extend(true, {}, error, {
         statusCode: error.statusCode || 500,
         message: errorMsg + ": " + error.message,
@@ -103,6 +106,7 @@ gpii.firstDiscovery.server.preferences.handler.errorHandler = function (that, er
     });
 
     fluid.log(fluid.logLevel.WARN, errorObj);
+    fluid.log(fluid.logLevel.IMPORTANT, errorObj);
     that.sendResponse(errorObj);
 };
 
@@ -116,6 +120,7 @@ gpii.firstDiscovery.server.preferences.handler.errorHandler = function (that, er
  *                      reject an error object will be returned.
  */
 gpii.firstDiscovery.server.preferences.handler.getAccessToken = function (that) {
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.getAccessToken: executing");
 
     var promise = fluid.promise();
     var atPromise = that.accessTokenDataSource.set(null, that.options.config.authentication);
@@ -141,6 +146,11 @@ gpii.firstDiscovery.server.preferences.handler.getAccessToken = function (that) 
  *                      reject an error object will be returned.
  */
 gpii.firstDiscovery.server.preferences.handler.createUser = function (that, access, prefs, view) {
+
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.createUser: access:: " + JSON.stringify(access, null, 2));
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.createUser: prefs:: " + JSON.stringify(prefs, null, 2));
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.createUser: view: " + view);
+
     var toStore = fluid.copy(that.options.prefContext);
     fluid.set(toStore, ["contexts", "gpii-default", "preferences"], prefs);
 
@@ -161,6 +171,13 @@ gpii.firstDiscovery.server.preferences.handler.createUser = function (that, acce
  * @param that {Object} - the component
  */
 gpii.firstDiscovery.server.preferences.handler.storePrefs = function (that) {
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.storePrefs: that.requst.hostname: " + that.request.hostname);
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.storePrefs: that.requst.ip: " + that.request.ip);
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.storePrefs: that.requst.method: " + that.request.method);
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.storePrefs: that.requst.baseUrl: " + that.request.baseUrl);
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.storePrefs: that.requst.query: " + JSON.stringify(that.request.query, null, 2));
+    fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.storePrefs: that.requst.body: " + JSON.stringify(that.request.body, null, 2));
+
     var view = that.request.query.view || "";
     var body = that.request.body || {};
 
@@ -168,7 +185,10 @@ gpii.firstDiscovery.server.preferences.handler.storePrefs = function (that) {
 
     accessTokenPromise.then(function (access) {
         var storePromise = that.createUser(access, body, view);
-        storePromise.then(that.successHandler, function (error) {
+        storePromise.then(function(data){
+            fluid.log(fluid.logLevel.IMPORTANT, "gpii.firstDiscovery.server.preferences.handler.storePrefs: storePromise resolved with data: " + JSON.stringify(data, null, 2));
+            that.successHandler(data);
+        }, function (error) {
             that.errorHandler(error, "Failed to store Preferences");
         });
     }, function (error) {
